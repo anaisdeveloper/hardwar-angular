@@ -56,18 +56,18 @@ export class CreateProductComponent implements OnInit {
           
           if (this.activatedRoute.snapshot.params['id2'] != null) {
           
-          this.cat_id = this.activatedRoute.snapshot.params['id'];
-          this.prod_id = this.activatedRoute.snapshot.params['id2'];
-        this.getCategoryById(this.cat_id);
-        this.getProductOfCategoryById(this.prod_id);
-          
-         this.categoryForm.patchValue({
-          id : this.cat_id,
-        });
+              this.cat_id = this.activatedRoute.snapshot.params['id'];
+              this.prod_id = this.activatedRoute.snapshot.params['id2'];
+            this.getCategoryById(this.cat_id);
+            this.getProductOfCategoryById(this.prod_id);
+              
+            this.categoryForm.patchValue({
+              id : this.cat_id,
+            });
         
         
           
-        }
+        }else this.isCreateproduct = true;
         }
       });
     }
