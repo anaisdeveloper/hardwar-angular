@@ -1,0 +1,92 @@
+<div class="m-4 p-4">
+        <div class="panel panel-default">
+
+                <ng-template #errors>
+                        <div class="text-danger">{{errorMessage}}</div>
+                </ng-template>
+            <p class="h1">List of Categories</p>
+            
+            <div class="panel-body">
+                
+                <table class="table table-light" *ngIf="categories; else errors">
+                        <thead><tr><th>NAME</th> </tr></thead>
+                        <tbody>
+                                <tr *ngFor="let c of categories">
+                   
+                                        <td>
+                                                <a style=" cursor: pointer;" class="nav-link" (click)="onGetProducts(c)"> {{c.name}}</a>
+                                     </td>
+        
+                                        <td *ngIf="isAdmin()">
+                                                <button (click)="onUpdateCat(c.id)" type="button" class="btn btn-success" id="btnUpdate">
+                                                        <i class="bi bi-pencil-fill"></i>
+                                                    </button>
+                                        </td>
+                                        
+                                            <td *ngIf="isAdmin()">
+                                                    <button (click)="onDeleteCat(c)" type="button" class="btn btn-danger" id="btnDelete">
+                                                            <i class="bi bi-trash" id="trash"></i>
+                                                        </button>
+                                            </td>
+                                       </tr>
+                        </tbody>    
+                   
+                </table>
+                <ul class="nav nav-pills">
+                        <li *ngFor="let item of pagesArray; let i = index">
+                            <a (click)="goToPage(i)" [ngClass]="{'active': i ==  currentPage}" class="btn btn-outline-dark ms-2 mt-2">{{i}}</a>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+           
+        <div *ngIf="isAdmin()" class="container m-2 p-2 ">
+                        <button (click)="onCreateCat()" type="button" class="btn btn-info float-right" id="btnCreate">
+                                        Create New Category  <i class="bi bi-plus-circle"></i>
+                                    </button>
+        </div>
+           
+           
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <!-- <div class="container" *ngIf="categories" >
+                    <ng-template #errors>
+                            <div class="text-danger">{{errorMessage}}</div>
+                        </ng-template>
+                <div class="card p-2 m-2" *ngIf="categories; else errors">
+                        <div class="card-header">Categories  List</div>
+                        <div class="card-body">
+        
+                                <ul class="list-group">
+                                        <li [ngClass]="currentCategory && currentCategory.id==c.id ? 'active': ''" class="list-group-item" 
+                                         *ngFor="let c of categories">
+                                            <a style=" cursor: pointer;" class="nav-link" (click)="onGetProducts(c)"> {{c.name}}</a>
+                                        </li>
+                                        
+                                      </ul>
+                       
+                        </div>
+        
+                </div>
+            
+            </div> -->
+</div>
