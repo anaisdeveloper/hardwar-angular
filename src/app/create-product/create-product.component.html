@@ -4,7 +4,7 @@
 
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
 
-            <div *ngIf="product" class="form-outline mb-4">
+            <div  class="form-outline mb-4">
                     <input type="text" id="name" formControlName="name" 
                     class="form-control" name="name"
                     required="required" maxlength="30" minlength="2" [value]="this.product.name" />
