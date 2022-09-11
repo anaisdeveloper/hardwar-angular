@@ -60,7 +60,7 @@ export class CreateProductComponent implements OnInit {
           this.prod_id = this.activatedRoute.snapshot.params['id2'];
         this.getCategoryById(this.cat_id);
         this.getProductOfCategoryById(this.prod_id);
-          this.isCreateproduct = false;
+          
          this.categoryForm.patchValue({
           id : this.cat_id,
         });
@@ -145,6 +145,7 @@ export class CreateProductComponent implements OnInit {
         promotion: this.product.promotion
         
       });
+      this.isCreateproduct = false;
      
     }, error: err => console.log(err)
   });
