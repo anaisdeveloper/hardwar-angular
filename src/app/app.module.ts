@@ -8,7 +8,6 @@ import { CustomersComponent } from './customers/customers.component';
 import { ProductsService } from './services/products.service';
 import { CategoriesComponent } from './categories/categories.component';
 import { MenuComponent } from './menu/menu.component';
-import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -27,7 +26,6 @@ import { CreateProductComponent } from './create-product/create-product.componen
     CustomersComponent,
     CategoriesComponent,
     MenuComponent,
-    FooterComponent,
     HomeComponent,
     LoginComponent,
   

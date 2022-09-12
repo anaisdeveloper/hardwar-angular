@@ -46,7 +46,7 @@ export class CategoriesService {
  */
 createNewCategory(cat){
   const headers = new HttpHeaders({ Authorization: this.authentication.jwt });
-   console.log("this jwt " + this.authentication.jwt);
+   
   const url : string = "https://hardwareboutique.herokuapp.com/categories";
   return this.http.post(url,  cat, {headers: headers});
 }
