@@ -65,9 +65,6 @@ export class CreateCategoryComponent implements OnInit {
 
     if (!this.isCreateCategory) {
       this.title = "Update  this category";
-      
-      
-      
      
     } 
 
@@ -142,7 +139,7 @@ export class CreateCategoryComponent implements OnInit {
 
 getCategory(id) {
   
-  this.categoriesService.getCategoryById(id)
+  this.categoriesService.getCategoryByIdFromServer(id)
   .subscribe({
     next: data => {
      

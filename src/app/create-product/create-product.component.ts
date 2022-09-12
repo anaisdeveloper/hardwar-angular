@@ -19,14 +19,15 @@ export class CreateProductComponent implements OnInit {
    * 
    */
 
-    product : Product;
+    product : Product = new Product(null, "", 0, false);
       cat_id : any;
       prod_id : any;
       nameOfCategory : string = "";
-      currentcCategory : any;
+      currenteCategory : Category;
       isCreateproduct : boolean = true;
     errorMessage : string = '';
     title: string = "Create new product";
+
     categoryForm: FormGroup =  new FormGroup({
       id: new FormControl(''),
     
@@ -51,25 +52,29 @@ export class CreateProductComponent implements OnInit {
     private router : Router, private activatedRoute: ActivatedRoute) { 
 
 
-      router.events.subscribe(event => {
-        if (event instanceof NavigationEnd) {
+      if (this.activatedRoute.snapshot.params['id'] != null) {
+        this.cat_id = this.activatedRoute.snapshot.params['id'];
+          this.getCategoryById(this.cat_id);
           
-          if (this.activatedRoute.snapshot.params['id2'] != null) {
-          
-              this.cat_id = this.activatedRoute.snapshot.params['id'];
-              this.prod_id = this.activatedRoute.snapshot.params['id2'];
-            this.getCategoryById(this.cat_id);
-            this.getProductOfCategoryById(this.prod_id);
+      }
+
+                  if (this.activatedRoute.snapshot.params['id2'] != null) {
+                      
+                        
+                    this.prod_id = this.activatedRoute.snapshot.params['id2'];
+                  
+                  this.getProductOfCategoryById(this.prod_id);
+                    
+                  this.categoryForm.patchValue({
+                    id : this.cat_id,
+                  });
               
-            this.categoryForm.patchValue({
-              id : this.cat_id,
-            });
-        
-        
+              
+                
+              }else this.isCreateproduct = true;
           
-        }else this.isCreateproduct = true;
-        }
-      });
+          
+      
     }
 
   ngOnInit(): void {
@@ -84,10 +89,16 @@ export class CreateProductComponent implements OnInit {
 
 
   public onSubmit(){
-    this.product = this.productForm.value;
+   
+
+    this.product.name = this.productForm.controls.name.value;
+    this.product.price = this.productForm.controls.price.value;
+    this.product.promotion = this.productForm.controls.promotion.value;
+   
     if (this.isCreateproduct) {
-      
+     
       this.saveNewProduct();
+      
       
   } else {
     
@@ -105,12 +116,13 @@ export class CreateProductComponent implements OnInit {
 
   public saveNewProduct(){
    
-    this.productService.createNewProduct(this.product)
+    this.productService.createNewProduct(this.cat_id, this.product)
     .subscribe({
       next: (data)=>{
       
         this.router.navigate(['products', this.cat_id]);
-      }, error: err => this.errorMessage = err,
+      }, error: err => {
+        console.log(err);this.errorMessage = err},
     })
 
 
@@ -125,7 +137,7 @@ export class CreateProductComponent implements OnInit {
         .subscribe({
           next: (data)=>{
             
-
+            this.isCreateproduct = true;
           }, error: err => this.errorMessage = err,
         })
 
@@ -152,12 +164,15 @@ export class CreateProductComponent implements OnInit {
   }
 
   getCategoryById(id: string){
-    this.categoriesService.getCategoryById(id)
+   
+    this.categoriesService.getCategoryByIdFromServer(id)
     .subscribe({
       next: (data)=>{
+       
+       
+        this.currenteCategory= JSON.parse(JSON.stringify(data));
+        this.nameOfCategory = this.currenteCategory.name;
         
-        this.currentcCategory= data;
-        this.nameOfCategory = this.currentcCategory.name;
       }, error: err => this.errorMessage = err
     })
   }

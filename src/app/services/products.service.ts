@@ -136,10 +136,10 @@ export class ProductsService {
  * ********************************************************************
  */
 
-createNewProduct(product){
+createNewProduct(id: string, product: Product){
+ //id of category
  
-  
-  const url : string = "https://hardwareboutique.herokuapp.com/products";
+  const url : string = "https://hardwareboutique.herokuapp.com/products/" + id;
   return this.http.post(url,  product, {headers: this.headers});
 }
 

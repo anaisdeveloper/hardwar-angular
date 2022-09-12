@@ -45,22 +45,18 @@ export class ProductsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
     ) { 
-      router.events.subscribe(event => {
-        if (event instanceof NavigationEnd) {
-
-        
           if (this.activatedRoute.snapshot.params['id'] != null) {
             let id = this.activatedRoute.snapshot.params['id'];
           this.cat_id = this.activatedRoute.snapshot.params['id'];
-         
-          this.getCategoryById(this.cat_id);
-           
         
-        
-          
-        }
-        }
-      });
+          this.currenteCategory = this.getCategoryById(this.cat_id);
+
+          this.getPageProducts();
+       
+    
+    
+      
+    }
      
       
     }
@@ -73,11 +69,13 @@ export class ProductsComponent implements OnInit {
       keyword : new FormControl('')
       
     });
-    this.getPageProducts();
+   
+    
     
     
   }
   getPageProducts() {
+    
     this.productService.getPagesOfProductsOfCategory(
       this.cat_id, 
       this.currentPage, this.size)
@@ -123,26 +121,13 @@ export class ProductsComponent implements OnInit {
     this.currentPage = i;
     this.getPageProducts();
   }
-//remove this
-  getListProductsOfCategory(id){
-    this.productService.getProductsOfCategory(id)
-    .subscribe({
-      next: (data: any[])=>{
-        
-        this.products = data;
-      }, error: (err)=>{
-      
-        this.errorMessage = err;
-        
-      }
-    })
-  }
+
 
 
   //not yet
   chercher(){
     
-    this.getListProducts();
+    this.getPageProducts();
      
      
    }
@@ -155,7 +140,7 @@ export class ProductsComponent implements OnInit {
  * ********************************************************************
  */
     public onSaveNewProduct(){
-     
+      
       this.router.navigate(['createProduct', this.cat_id]);
     }
 
@@ -167,7 +152,7 @@ export class ProductsComponent implements OnInit {
  * ********************************************************************
  */
     getCategoryById(id: string){
-      this.categoryService.getCategoryById(id)
+      this.categoryService.getCategoryByIdFromServer(id)
       .subscribe({
         next: (data)=>{
           

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   user: any;
-
+  errorMessage: string = "" ;
   
   constructor(private authenticationService: AuthenticationService,
     private router : Router) { }
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         
       let jwt = response.headers.get('Authorization');
       this.authenticationService.saveToken(jwt);
-      //this.authenticationService.saveUsername(this.userForm.controls.username.value);
+      
      this.authenticationService.authenticateUser(this.user)
      .subscribe({
        next: (data:User)=>{
@@ -58,33 +58,13 @@ export class LoginComponent implements OnInit {
      
         
       }, error:(err) =>{
+        this.errorMessage = err;
         
-        console.log(err);
       }
     })
   }
 
 
-  // onSubmit2(){
-   
-   
-  //   this.user = this.userForm.value;
-   
-  //   this.authenticationService.loginToServer(
-  //     this.userForm.controls.username.value,
-  //     this.userForm.controls.password.value)
-  //   .subscribe({
-  //     next:(response: any)=>{
-        
-  //     let jwt = response.headers.get('Authorization');
-  //     this.authenticationService.saveToken(jwt);
-  //    this.router.navigateByUrl('/home');
-        
-  //     }, error:(err) =>{
-        
-  //       console.log(err);
-  //     }
-  //   })
-  // }
+
   
 }

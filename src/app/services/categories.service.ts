@@ -70,12 +70,12 @@ deleteCategory(id: any) {
  */
 
 
- getCategoryById(id: string){
+getCategoryByIdFromServer(id: string){
   const headers = new HttpHeaders({ Authorization: this.authentication.jwt });
   
   const url : string = "https://hardwareboutique.herokuapp.com/categories/" +id;
   
-  let cat = this.http.get(url, {'headers':headers});
+  
   
   return this.http.get(url, {'headers':headers});
  }
