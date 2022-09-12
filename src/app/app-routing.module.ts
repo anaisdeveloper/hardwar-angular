@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 
 import { CreateCategoryComponent } from './create-category/create-category.component';
 import { CreateProductComponent } from './create-product/create-product.component';
+import { RegisterComponent } from './register/register.component';
 
 
 
@@ -15,7 +16,7 @@ const routes: Routes = [
   {path: "home", component:HomeComponent},
   {path: "", component:HomeComponent},
   {path: "login", component:LoginComponent},
-  
+  {path: "register", component:RegisterComponent},
   {path: "customers", component:CustomersComponent},
  
   {path: "categories", component:CategoriesComponent},

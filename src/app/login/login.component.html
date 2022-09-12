@@ -10,7 +10,8 @@
         <input type="text" id="username" formControlName="username" 
         class="form-control" name="username"
         required="required" maxlength="30" minlength="2" />
-        <label class="username" for="username">Username</label>
+        <label class="username" for="username">Username:  </label>
+        <span>  You can login with admin or badi</span>
       </div>
     
       <!-- Password input -->
@@ -19,6 +20,7 @@
         class="form-control" name="password"
         required="required" maxlength="30" minlength="2" />
         <label class="form-label" for="password">Password</label>
+        <span>  You can enter:  999</span>
       </div>
     
       <!-- 2 column grid layout for inline styling -->
@@ -31,10 +33,7 @@
           </div>
         </div>
     
-        <div class="col">
-          <!-- Simple link -->
-          <a href="#!">Forgot password?</a>
-        </div>
+        
       </div>
     
       <!-- Submit button -->
@@ -42,23 +41,11 @@
       <input  [disabled] = "!userForm.valid" type="submit" name="submit" value="Login"  />
       <!-- Register buttons -->
       <div class="text-center">
-        <p>Not a member? <a href="#!">Register</a></p>
-        <p>or sign up with:</p>
-        <button type="button" class="btn btn-link btn-floating mx-1">
-          <i class="fab fa-facebook-f"></i>
-        </button>
+        <p>Not a member? <a routerLink="/register">Register</a></p>
+       
+        
     
-        <button type="button" class="btn btn-link btn-floating mx-1">
-          <i class="fab fa-google"></i>
-        </button>
-    
-        <button type="button" class="btn btn-link btn-floating mx-1">
-          <i class="fab fa-twitter"></i>
-        </button>
-    
-        <button type="button" class="btn btn-link btn-floating mx-1">
-          <i class="fab fa-github"></i>
-        </button>
+       
       </div>
     </form>
      
