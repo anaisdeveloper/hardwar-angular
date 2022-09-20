@@ -8,13 +8,13 @@ import { AuthenticationService } from './services/authentication.service';
 })
 export class AppComponent implements OnInit{
  
-  title = 'hardware';
+  title: string = 'hardware';
 
   constructor(private authenticationService: AuthenticationService){}
 
   ngOnInit(): void {
 
-    //localStorage.clear();
+    
     if (this.authenticationService.jwt != null) {
       this.authenticationService.loadToken();
     }

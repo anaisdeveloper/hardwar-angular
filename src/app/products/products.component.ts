@@ -29,7 +29,7 @@ export class ProductsComponent implements OnInit {
   currenteCategory : any;
   nameOfCategory : string = "";
   currentProduct : Product;
-  
+  keyword: string = '';
  
  
 
@@ -125,9 +125,10 @@ export class ProductsComponent implements OnInit {
 
 
   //not yet
-  chercher(){
-    
-    this.getPageProducts();
+  searchProduct(){
+    console.log("hello");
+    //this.getPageProducts();
+    this.getPageOfProductsPerCategoryByKeyword();
      
      
    }
@@ -242,5 +243,40 @@ public onSetPromotionOfProduct(p){
   }
 
   
+
+  /*********************************************************************
+ *                          GET PAGES OF PRODUCTS 
+ *                      PER CATEGORY BY KEYWORD
+ * ********************************************************************
+ * ********************************************************************
+ */
+    public getPageOfProductsPerCategoryByKeyword(){
+      console.log("hello 2222222");
+            this.productService.getPagesOfProductsOfCategoryByKw(
+              this.cat_id,
+              this.keyword,
+              this.currentPage, 
+              this.size)
+              .subscribe({
+                next: (data: any)=>{
+                  console.log("hello 7777");
+                  this.products = data.content;
+                  console.log('data   ' + this.products);
+                  this.totalOfPages = data.totalPages;
+                  this.pagesArray = new Array(this.totalOfPages);
+                  this.currentPage = data.number;
+                  
+                }, error: (err)=>{
+                  console.log('catch  ' + err);
+                  this.errorMessage = err;
+                  
+                }
+              }) 
+
+            
+      
+    
+
+      }
 
 }
