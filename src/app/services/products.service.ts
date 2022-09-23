@@ -111,8 +111,8 @@ export class ProductsService {
 
   getPagesOfProductsOfCategoryByKw(cat_id : string, keyword: string, page:number, size: number): Observable<any>{
   
-    let url : string = 'https://hardwareboutique.herokuapp.com/productofcategorybykeyword?id=' + cat_id + 'keyword=' + keyword+ '&page=' + page + '&size='+ size;
-    console.log("service");
+    let url : string = 'https://hardwareboutique.herokuapp.com/productofcategorybykeyword?id=' + cat_id + '&keyword=' + keyword+ '&page=' + page + '&size='+ size;
+    
     return this.http.get(url);
    
     }
@@ -139,8 +139,9 @@ export class ProductsService {
 createNewProduct(id: string, product: Product){
  //id of category
  
-  //const url : string = "https://hardwareboutique.herokuapp.com/products/" + id;
+  
   const url : string = "https://hardwareboutique.herokuapp.com/products?cat_id=" + id;
+  
   return this.http.post(url,  product, {headers: this.headers});
 }
 

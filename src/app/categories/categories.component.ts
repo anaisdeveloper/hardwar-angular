@@ -50,20 +50,7 @@ export class CategoriesComponent implements OnInit {
 
 
 
-//remove thid method
-  getCategories(){
-    this.categoriesService.getAllCatgories()
-    .subscribe({
-      next: (data: any[])=>{
-      
-        this.categories = data;
-      }, error: (err)=>{
-       
-        this.errorMessage = err;
-        
-      }
-    })
-  }
+
 
 
 
@@ -87,7 +74,7 @@ export class CategoriesComponent implements OnInit {
       next: (data)=>{
         
         this.categories = data.content;
-       
+      
         this.totalOfPages = data.totalPages;
        
         this.pagesArray = new Array(this.totalOfPages);

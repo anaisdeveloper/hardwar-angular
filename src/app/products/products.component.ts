@@ -126,7 +126,7 @@ export class ProductsComponent implements OnInit {
 
   //not yet
   searchProduct(){
-    console.log("hello");
+    
     //this.getPageProducts();
     this.getPageOfProductsPerCategoryByKeyword();
      
@@ -251,7 +251,8 @@ public onSetPromotionOfProduct(p){
  * ********************************************************************
  */
     public getPageOfProductsPerCategoryByKeyword(){
-      console.log("hello 2222222");
+      this.keyword = this.productSearchForm.controls.keyword.value;
+    
             this.productService.getPagesOfProductsOfCategoryByKw(
               this.cat_id,
               this.keyword,
@@ -259,15 +260,15 @@ public onSetPromotionOfProduct(p){
               this.size)
               .subscribe({
                 next: (data: any)=>{
-                  console.log("hello 7777");
+                
                   this.products = data.content;
-                  console.log('data   ' + this.products);
+                
                   this.totalOfPages = data.totalPages;
                   this.pagesArray = new Array(this.totalOfPages);
                   this.currentPage = data.number;
                   
                 }, error: (err)=>{
-                  console.log('catch  ' + err);
+                  
                   this.errorMessage = err;
                   
                 }
