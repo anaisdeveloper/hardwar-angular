@@ -7,7 +7,18 @@
             <p class="h1">List of Categories</p>
             
             <div class="panel-body">
-                
+                <!-- {{productSearchForm.value | json}} -->
+            <form [formGroup]="categoriesSearchForm"  (ngSubmit)="searchCategoriesByKeyword()">
+                <div class="input-group">
+                    <label class="input-group-text">Keyword</label>
+                    <input type="text" class="form-control" formControlName="keyword" 
+                    name="keyword"
+                    required="required" maxlength="30" minlength="2" />
+                    <button class="btn btn-info">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </form>
                 <table class="table table-light" *ngIf="categories; else errors">
                         <thead><tr><th>NAME</th> </tr></thead>
                         <tbody>
@@ -33,10 +44,10 @@
                    
                 </table>
                 <ul class="nav nav-pills">
-                        <li *ngFor="let item of pagesArray; let i = index">
+                        <li *ngFor="let c of categoriesArray; let i = index">
                             <a (click)="goToPage(i)" [ngClass]="{'active': i ==  currentPage}" class="btn btn-outline-dark ms-2 mt-2">{{i}}</a>
                         </li>
-                    </ul>
+                </ul>
             </div>
         </div>
            

@@ -40,6 +40,29 @@ export class CategoriesService {
     
     return  this.http.get(url);//(this.categories);
    }
+
+
+   /**
+    ** /*********************************************************************
+ *  ******************** GET PAGES OF Categories  BY KEYWORD
+ * @param keyword                
+ * 
+ * @param page 
+ * @param size 
+ * ********************************************************************
+ * ********************************************************************
+ * ********************************************************************
+ */
+
+    
+
+  getPagesOfCategoriesByKw(keyword: string, page:number, size: number): Observable<any>{
+  
+    let url : string = 'https://hardwareboutique.herokuapp.com/categoriesbykeyword?keyword=' + keyword+ '&page=' + page + '&size='+ size;
+    
+    return this.http.get(url);
+   
+    }
 /**
  * 
  * @param id Create new Category

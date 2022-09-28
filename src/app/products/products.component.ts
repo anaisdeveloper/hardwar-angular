@@ -22,7 +22,7 @@ export class ProductsComponent implements OnInit {
   size: number = 7;
   totalOfPages = 0;
   pagesArray: Array<Number>= [];
-  pages: Array<Number>= [];
+ 
   hasError : boolean = true;
   errorMessage : string = '';
   cat_id : string = '';
@@ -30,7 +30,7 @@ export class ProductsComponent implements OnInit {
   nameOfCategory : string = "";
   currentProduct : Product;
   keyword: string = '';
- 
+  searchActived : boolean = false;
  
 
   productSearchForm : FormGroup =  new FormGroup({
@@ -51,7 +51,8 @@ export class ProductsComponent implements OnInit {
         
           this.currenteCategory = this.getCategoryById(this.cat_id);
 
-          this.getPageProducts();
+         // this.getPageProducts();
+         this.getPageOfProductsPerCategoryByKeyword();
        
     
     
@@ -119,14 +120,16 @@ export class ProductsComponent implements OnInit {
 
   goToPage(i: number){
     this.currentPage = i;
-    this.getPageProducts();
+    //this.getPageProducts();
+    this.getPageOfProductsPerCategoryByKeyword();
+
   }
 
 
 
-  //not yet
+  
   searchProduct(){
-    
+    //this.searchActived = true;
     //this.getPageProducts();
     this.getPageOfProductsPerCategoryByKeyword();
      
@@ -174,8 +177,8 @@ export class ProductsComponent implements OnInit {
           this.productService.deleteProduct(p.id)
           .subscribe({
             next: (data)=>{
-              
-              this.getPageProducts();
+              this.getPageOfProductsPerCategoryByKeyword();
+              //this.getPageProducts();
   
             }, error: err => this.errorMessage = err,
           })

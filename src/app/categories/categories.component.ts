@@ -5,6 +5,7 @@ import { Category } from '../models/category';
 import { Product } from '../models/product';
 import { AuthenticationService } from '../services/authentication.service';
 import { isNumber } from 'util';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-categories',
@@ -21,10 +22,10 @@ export class CategoriesComponent implements OnInit {
   currentPage: number = 0;
     size: number = 7;
     totalOfPages = 0;
-    pagesArray: Array<Number>= [];
+    categoriesArray: Array<Number>= [];
     pages: Array<Number>= [];
-  
-
+    keyword: string = " ";
+    categoriesSearchForm : FormGroup;
  
 
   /**
@@ -38,8 +39,13 @@ export class CategoriesComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-
-    this.displayAllCategories();
+      this.categoriesSearchForm  =  new FormGroup({
+   
+        keyword: new FormControl('')
+        
+      });
+   // this.displayAllCategories();
+    this.getPageOfCategoryByKeyword();
     
     
   }
@@ -77,8 +83,9 @@ export class CategoriesComponent implements OnInit {
       
         this.totalOfPages = data.totalPages;
        
-        this.pagesArray = new Array(this.totalOfPages);
+        this.categoriesArray = new Array(this.totalOfPages);
         this.currentPage = data.number;
+        console.log(this.categories);
       }, error: (err)=>{
         //il faut afficher une boite de dialogue
       
@@ -89,10 +96,18 @@ export class CategoriesComponent implements OnInit {
    
     }
 
+    searchCategoriesByKeyword(){
+    
+      //this.getPageProducts();
+      this.getPageOfCategoryByKeyword();
+       
+       
+     }
+
 
     onGetProducts(c){
       this.currentCategory = c;
-      
+     
       this.router.navigate(['products', c.id]);
       
     }
@@ -111,8 +126,8 @@ export class CategoriesComponent implements OnInit {
       this.categoriesService.deleteCategory(c.id)
     .subscribe({
       next: (data)=> {
-        this.displayAllCategories();
-  
+        //this.displayAllCategories();
+        this.getPageOfCategoryByKeyword();
        
   
       }
@@ -144,7 +159,9 @@ export class CategoriesComponent implements OnInit {
 
   goToPage(i: number){
     this.currentPage = i;
-    this.displayAllCategories();
+    //this.displayAllCategories();
+    
+    this.getPageOfCategoryByKeyword();
   }
 
   
@@ -162,6 +179,28 @@ export class CategoriesComponent implements OnInit {
    * * ***************************************************************
    * ***************************************************************
    */
+
+   public getPageOfCategoryByKeyword(){
+    
+     this.keyword = this.categoriesSearchForm.controls.keyword.value;
+     
+     this.categoriesService.getPagesOfCategoriesByKw(
+      this.keyword,
+      this.currentPage, 
+      this.size)
+        .subscribe({
+          next: (data: any)=>{
+            this.categories = data.content;
+            this.totalOfPages = data.totalPages;
+           
+            this.categoriesArray = new Array(data.totalPages);
+            this.currentPage = data.number;
+            this.size = data.size;
+            //console.log("data " +  JSON.stringify(data));
+          }, error: (err)=> this.errorMessage = err,
+        })
+   }
+       
 
 
 
