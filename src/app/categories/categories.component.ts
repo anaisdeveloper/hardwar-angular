@@ -98,7 +98,7 @@ export class CategoriesComponent implements OnInit {
 
     searchCategoriesByKeyword(){
     
-      //this.getPageProducts();
+     
       this.getPageOfCategoryByKeyword();
        
        
@@ -126,7 +126,7 @@ export class CategoriesComponent implements OnInit {
       this.categoriesService.deleteCategory(c.id)
     .subscribe({
       next: (data)=> {
-        //this.displayAllCategories();
+     
         this.getPageOfCategoryByKeyword();
        
   
