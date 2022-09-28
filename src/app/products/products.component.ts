@@ -49,9 +49,9 @@ export class ProductsComponent implements OnInit {
             let id = this.activatedRoute.snapshot.params['id'];
           this.cat_id = this.activatedRoute.snapshot.params['id'];
         
-          this.currenteCategory = this.getCategoryById(this.cat_id);
-
-         // this.getPageProducts();
+        this.getCategoryById(this.cat_id);
+           
+        
          this.getPageOfProductsPerCategoryByKeyword();
        
     
@@ -63,6 +63,7 @@ export class ProductsComponent implements OnInit {
     }
 
   ngOnInit(): void {
+   
 
     this.productSearchForm = new FormGroup({
     
@@ -120,7 +121,7 @@ export class ProductsComponent implements OnInit {
 
   goToPage(i: number){
     this.currentPage = i;
-    //this.getPageProducts();
+  
     this.getPageOfProductsPerCategoryByKeyword();
 
   }
@@ -129,8 +130,7 @@ export class ProductsComponent implements OnInit {
 
   
   searchProduct(){
-    //this.searchActived = true;
-    //this.getPageProducts();
+   
     this.getPageOfProductsPerCategoryByKeyword();
      
      
@@ -156,12 +156,14 @@ export class ProductsComponent implements OnInit {
  * ********************************************************************
  */
     getCategoryById(id: string){
+     
       this.categoryService.getCategoryByIdFromServer(id)
       .subscribe({
         next: (data)=>{
           
           this.currenteCategory= data;
          this.nameOfCategory = this.currenteCategory.name;
+        
         }, error: err => this.errorMessage = err
       })
     }
@@ -178,7 +180,7 @@ export class ProductsComponent implements OnInit {
           .subscribe({
             next: (data)=>{
               this.getPageOfProductsPerCategoryByKeyword();
-              //this.getPageProducts();
+           
   
             }, error: err => this.errorMessage = err,
           })
@@ -211,13 +213,12 @@ export class ProductsComponent implements OnInit {
  * ********************************************************************
  */
 public onSetPromotionOfProduct(p){
-  
-  let isPromo = p.promotion;
+ 
   this.productService.setPromotionOfProduct(p)
   .subscribe({
     next: (data)=>{
    
-      
+   p.promotion = data;
     }, error: (err)=> {
       this.errorMessage = err;
       
@@ -263,9 +264,10 @@ public onSetPromotionOfProduct(p){
               this.size)
               .subscribe({
                 next: (data: any)=>{
+                  //this.currenteCategory = 
                 
                   this.products = data.content;
-                
+               
                   this.totalOfPages = data.totalPages;
                   this.pagesArray = new Array(this.totalOfPages);
                   this.currentPage = data.number;

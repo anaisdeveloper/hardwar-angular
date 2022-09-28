@@ -100,6 +100,7 @@ export class CategoriesComponent implements OnInit {
     
       //this.getPageProducts();
       this.getPageOfCategoryByKeyword();
+      
        
        
      }

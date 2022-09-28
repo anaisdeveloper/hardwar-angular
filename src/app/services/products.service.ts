@@ -185,9 +185,8 @@ createNewProduct(id: string, product: Product){
  * ********************************************************************
  */
 
-  public setPromotionOfProduct(product) {
-  
-  
+  public setPromotionOfProduct(product: Product) {
+ 
   let url : string = 'https://hardwareboutique.herokuapp.com/product/'  +product.id;
   return this.http.put(url, product,{'headers':this.headers});
   
