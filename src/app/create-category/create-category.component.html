@@ -1,0 +1,36 @@
+<h1>{{title}}</h1>
+<ng-template #errors>
+        <div class="text-danger">{{errorMessage}}</div>
+    </ng-template>
+<div class="container" >
+        <h3 *ngIf="!isCreateCategory">ID: {{idCat}}</h3>
+        <div class="mb-3">
+
+            <form  [formGroup]="newCategoryForm"  (ngSubmit)="onSubmit()">
+                <div class="form-outline mb-4">
+                    <label class="name" for="name">Name</label>
+                    <div>
+
+                            <input type="text" id="name" formControlName="name" 
+                            class="form-control" name="name" 
+                            required="required" maxlength="30" minlength="2" *ngIf="category==undefined" />
+
+
+                        <input type="text" id="name" formControlName="name" 
+                    class="form-control" name="name" 
+                    required="required" maxlength="30" minlength="2" *ngIf="category!= undefined" [value]="this.category.name" />
+                    </div>
+                  
+                  </div>
+
+               <div class="container m-2 p-2">
+                <input [disabled] = "!newCategoryForm.valid" type="submit" name="submit"  value="Save" *ngIf="isCreateCategory" />
+                <input  [disabled] = "!newCategoryForm.valid" type="submit" name="submit"  value="Update" *ngIf="!isCreateCategory" />
+               </div>
+
+
+
+                  
+            </form>
+                
+</div>

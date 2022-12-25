@@ -1,0 +1,72 @@
+<h2 class="m-4 p-4"> Category : {{nameOfCategory}}</h2>
+
+
+<div class="p-2 m-2">
+
+<div class="container">
+    <ng-template #errors>
+        <div class="text-danger">{{errorMessage}}</div>
+    </ng-template>
+    <nav class="p-2 m-2" *ngIf="isAdmin()">
+            <button (click)="onSaveNewProduct()" type="button" class="btn btn-info" >
+                    Create product
+                </button>
+    </nav>
+    <div class="card p-2 m-2" *ngIf="products; else errors">
+        <div class="card-header">Products List</div>
+
+        <div class="card-body p-2 m-2">
+           <!-- {{productSearchForm.value | json}} -->
+            <form [formGroup]="productSearchForm"  (ngSubmit)="searchProduct()">
+                <div class="input-group">
+                    <label class="input-group-text">Keyword</label>
+                    <input type="text" class="form-control" formControlName="keyword" 
+                    name="keyword"
+                    required="required" maxlength="30" minlength="2" />
+                    <button class="btn btn-info">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </form>
+            <table class="table table-light">
+                <thead>
+                    <tr>
+                        <th>NAME</th><th>PRICE</th><th>PROMO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of products">
+                      
+                        <td>{{p.name}}</td>
+                        <td>{{p.price}}</td>
+                        <td ><i *ngIf="p.promotion == true" class="bi bi-heart-fill text-success" ></i></td>
+                         <td *ngIf="isAdmin()">
+                             <button (click)="onSetPromotionOfProduct(p)" [ngClass] ="p.promotion==true ? 'btn-dark' : 'btn-success'" class="btn">
+                                 <span *ngIf="p.promotion == true">Promotion disabled</span>
+                                 <span *ngIf="p.promotion == false">Promo Enable</span>
+                             </button>
+                         </td>   
+                         <td *ngIf="isAdmin()">
+                            <button (click)="onUpdateProduct(p)" type="button" class="btn btn-success" id="btnUpdate">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </button>
+                    </td>
+                       
+                        <td  *ngIf="isAdmin()">
+                            <button (click)="deleteProduct(p)" type="button" class="btn btn-danger" id="btnDelete">
+                                <i class="bi bi-trash" id="trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="nav nav-pills">
+                <li *ngFor="let item of pagesArray; let i = index">
+                    <a (click)="goToPage(i)" [ngClass]="{'active': i ==  currentPage}" class="btn btn-outline-dark ms-2 mt-2">{{i}}</a>
+                </li>
+            </ul>
+            
+        </div>
+    </div>
+</div>
+</div>
